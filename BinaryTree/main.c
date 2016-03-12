@@ -32,9 +32,9 @@ int CreateBiTree(BiTree *T){
 
         (*T)->data = ch;
         printf("输入%d的左子节点：",ch);
-        CreateBiTree(&(*T)->lChild);
+        CreateBiTree(&((*T)->lChild));
         printf("输入%d的右子节点：",ch);
-        CreateBiTree(&(*T)->rChild);
+        CreateBiTree((&(*T)->rChild));
     }
 
     return 1;
@@ -83,7 +83,7 @@ void PostOrderBiTree(BiTree T){
 int TreeDeep(BiTree T){
 
     int deep = 0;
-    if (T) {
+    if (T != NULL) {
         int leftdeep = TreeDeep(T->lChild);
         int rightdeep = TreeDeep(T->rChild);
         deep = leftdeep >= rightdeep?leftdeep+1:rightdeep+1;
@@ -93,10 +93,11 @@ int TreeDeep(BiTree T){
 }
 
 //叶子节点个数
-int count;
 int LeafCount(BiTree T){
 
-    if (T) {
+    static int count;
+
+    if (T != NULL) {
         if (T->lChild == NULL && T->rChild == NULL) {
             count++;
         }
@@ -132,10 +133,10 @@ int main(int argc,const char *argv[]){
 
     depth = TreeDeep(T);
     printf("树的深度为：%d\n",depth);
-
+    
     leafCount = LeafCount(T);
     printf("叶子节点个数:%d\n",leafCount);
-
+    
     return 0;
 }
 
