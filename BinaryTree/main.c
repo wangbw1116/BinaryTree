@@ -9,44 +9,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int elemType;
 typedef struct BTNode{
-
-    elemType data;
+    int data;
     struct BTNode *lChild;
     struct BTNode *rChild;
-}BiTNode,*BiTree;
+}BiTNode;
 
 //先序创建二叉树
-int CreateBiTree(BiTree *T){
-
-    elemType ch;
-
+int CreateBiTree(BiTNode **T)
+{
+    int ch;
     scanf("%d",&ch);
-
-    if (ch == -1) {
-        T = NULL;
-    }else{
-
-        *T = (BiTree )malloc(sizeof(BiTNode));
-
-        (*T)->data = ch;
-        printf("输入%d的左子节点：",ch);
-        CreateBiTree(&((*T)->lChild));
-        printf("输入%d的右子节点：",ch);
-        CreateBiTree((&(*T)->rChild));
+    if (ch == -1)
+    {
+        *T = NULL;
+        return 0;
+    }
+    else
+    {
+        *T = (BiTNode *)malloc(sizeof(BiTNode));
+        if (T == NULL)
+        {
+            printf("failed\n");
+            return 0;
+        }
+        else
+        {
+            (*T)->data = ch;
+            printf("输入%d的左子节点：",ch);
+            CreateBiTree(&((*T)->lChild));
+            printf("输入%d的右子节点：",ch);
+            CreateBiTree((&(*T)->rChild));
+        }
     }
 
     return 1;
 }
 
 //先序遍历二叉树
-void PreOrderBiTree(BiTree T){
-
-    if (T == NULL) {
+void PreOrderBiTree(BiTNode *T)
+{
+    if (T == NULL)
+    {
         return;
-    }else{
-
+    }
+    else
+    {
         printf("%d ",T->data);
         PreOrderBiTree(T->lChild);
         PreOrderBiTree(T->rChild);
@@ -54,12 +62,14 @@ void PreOrderBiTree(BiTree T){
 }
 
 //中序遍历二叉树
-void MiddleOrderBiTree(BiTree T){
-
-    if (T == NULL) {
+void MiddleOrderBiTree(BiTNode *T)
+{
+    if (T == NULL)
+    {
         return;
-    }else{
-
+    }
+    else
+    {
         MiddleOrderBiTree(T->lChild);
         printf("%d ",T->data);
         MiddleOrderBiTree(T->rChild);
@@ -67,12 +77,14 @@ void MiddleOrderBiTree(BiTree T){
 }
 
 //后续遍历二叉树
-void PostOrderBiTree(BiTree T){
-
-    if (T == NULL) {
+void PostOrderBiTree(BiTNode *T)
+{
+    if (T == NULL)
+    {
         return;
-    }else{
-
+    }
+    else
+    {
         PostOrderBiTree(T->lChild);
         PostOrderBiTree(T->rChild);
         printf("%d ",T->data);
@@ -80,10 +92,11 @@ void PostOrderBiTree(BiTree T){
 }
 
 //二叉树的深度
-int TreeDeep(BiTree T){
-
+int TreeDeep(BiTNode *T)
+{
     int deep = 0;
-    if (T != NULL) {
+    if (T != NULL)
+    {
         int leftdeep = TreeDeep(T->lChild);
         int rightdeep = TreeDeep(T->rChild);
         deep = leftdeep >= rightdeep?leftdeep+1:rightdeep+1;
@@ -93,12 +106,13 @@ int TreeDeep(BiTree T){
 }
 
 //叶子节点个数
-int LeafCount(BiTree T){
-
+int LeafCount(BiTNode *T)
+{
     static int count;
-
-    if (T != NULL) {
-        if (T->lChild == NULL && T->rChild == NULL) {
+    if (T != NULL)
+    {
+        if (T->lChild == NULL && T->rChild == NULL)
+        {
             count++;
         }
 
@@ -109,12 +123,10 @@ int LeafCount(BiTree T){
     return count;
 }
 
-
-
 //主函数
-int main(int argc,const char *argv[]){
-
-    BiTree T;
+int main(int argc,const char *argv[])
+{
+    BiTNode *T;
     int depth,leafCount = 0;
     printf("请输入第一个节点的值，-1表示没有叶节点：\n");
     CreateBiTree(&T);
@@ -136,20 +148,6 @@ int main(int argc,const char *argv[]){
     
     leafCount = LeafCount(T);
     printf("叶子节点个数:%d\n",leafCount);
-    
+
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
