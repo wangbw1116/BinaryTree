@@ -28,19 +28,11 @@ void CreateBiTree(BiTNode **T)
     else
     {
         *T = (BiTNode *)malloc(sizeof(BiTNode));
-        if (T == NULL)
-        {
-            printf("failed\n");
-            return;
-        }
-        else
-        {
-            (*T)->data = ch;
-            printf("输入%d的左子节点：",ch);
-            CreateBiTree(&((*T)->lChild));
-            printf("输入%d的右子节点：",ch);
-            CreateBiTree((&(*T)->rChild));
-        }
+        (*T)->data = ch;
+        printf("输入%d的左子节点：",ch);
+        CreateBiTree(&((*T)->lChild));
+        printf("输入%d的右子节点：",ch);
+        CreateBiTree((&(*T)->rChild));
     }
 
     return;
