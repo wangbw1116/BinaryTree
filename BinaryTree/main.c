@@ -38,6 +38,18 @@ void CreateBiTree(BiTNode **T)
     return;
 }
 
+void DestroyBiTree(BiTNode *T)
+{
+    if (T == NULL)
+        return;
+
+    DestroyBiTree(T->lChild);
+    DestroyBiTree(T->rChild);
+    free(T);
+
+    return;
+}
+
 //先序遍历二叉树
 void PreOrderBiTree(BiTNode *T)
 {
@@ -140,6 +152,8 @@ int main(int argc,const char *argv[])
     
     leafCount = LeafCount(T);
     printf("叶子节点个数:%d\n",leafCount);
+
+    DestroyBiTree(T);
 
     return 0;
 }
